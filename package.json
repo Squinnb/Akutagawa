@@ -1,6 +1,6 @@
 {
   "name": "acquco",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "homepage": "https://squinnb.github.io/acquco/",
   "type": "module",
