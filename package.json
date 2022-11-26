@@ -1,15 +1,15 @@
 {
   "name": "acquco",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
-  "homepage": "https://squinnb.github.io/acquco",
+  "homepage": "https://squinnb.github.io/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
