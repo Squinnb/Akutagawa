@@ -1,5 +1,5 @@
 import React, { useState, useContext, memo } from 'react'
-import {AuthContext} from "./contexts/AuthContext"
+
 
 import '../App.css'
 interface AuthInfo {
@@ -20,23 +20,3 @@ function AuthPage() {
 
 export default AuthPage
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // let [exaggerate, setExaggerate] = useState(true)
-    // onMouseDown={() => {toggleBtn(); setExaggerate(true)}}
-    // onMouseUp={() => {setExaggerate(false)}
-    // className={(exaggerate ? 'authBtnExaggerate authItem authBtn' : 'authItem authBtn')}

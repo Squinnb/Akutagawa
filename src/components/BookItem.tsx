@@ -5,13 +5,13 @@ import {Book} from './interfaces/baseInterface'
 
 
 const BookItem: React.FC<Book> = (win) => {
-    const { year, author, title} = win
+    const { year, name, title} = win
 
     return (
 
         <tr className="">
             <td>{year} </td>
-            <td> {author} </td>
+            <td> {name} </td>
             <td> <Link to={`/akutagawashou/${title}`}> <button className="titleBtn">{title} </button> </Link> </td>
         </tr>
     )
