@@ -1,5 +1,6 @@
+import React from 'react';
 import {useState, useContext} from 'react'
-import {AuthContext} from '../contexts/AuthContext'
+
 import '../../details.css'
 
 interface Props {
