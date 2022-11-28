@@ -3,7 +3,7 @@ import Review from './Review'
 
 import '../../details.css'
 import ReviewForm from './ReviewForm';
-import React from 'react';
+import reviewList from '../../d/Revs';
 interface Props {
     book_id: number;
 }
@@ -18,8 +18,7 @@ interface ReviewData {
  function Reviews(props: Props) {
    
     const { book_id } = props
-   
-
+    
     let [hasReviewed, setHasReviewed] = useState<Boolean>(true)
     let [reviews, setReviews] = useState<ReviewData[]>([])
 
@@ -27,6 +26,15 @@ interface ReviewData {
     let [title, setTitle] = useState("")
     let [text, setText] = useState("")
 
+    useEffect(() => {
+        console.log(book_id)
+        let revs: Array<ReviewData> = reviewList.filter( (r: ReviewData ) => {
+            console.log(r)
+            return r.book === book_id
+        })
+        console.log(revs)
+        setReviews(revs)
+    },[])
 
 
    
@@ -41,7 +49,7 @@ interface ReviewData {
             }
             
             {
-                reviews ?
+                reviews.length > 0 ?
                 reviews.map((rev, i) => {
                     return(
                         <Review key={rev.user} setReviews={setReviews} setHasReviewed={setHasReviewed} reviewData={rev} index={i} />

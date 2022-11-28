@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import '../details.css'
 import Reviews from './BookDetailComponents/Reviews';
 import photo from "../bookPhotos/コンビニ人間.jpg"
-import {allBooks} from "../dummyData/Books"
+import {allBooks} from "../d/Books"
 
 const BookDetails: React.FC =() => {
     const title: string | undefined = useParams()["title"]
@@ -37,6 +37,7 @@ const BookDetails: React.FC =() => {
                         { details[title] ? details[title].summary : "..."}
                     </p> : ""}
             </div>
+            
             <div id='reviewContainer'>
                 <Reviews book_id={Number(no)}/>
             </div>

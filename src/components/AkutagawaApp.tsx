@@ -9,7 +9,7 @@ import Auth from "./AuthPage"
 import Nav from "./Nav" 
 import UserHome from './UserHome';
 import {Book} from './interfaces/baseInterface'
-import {allBooks} from "../dummyData/Books"
+import {allBooks} from "../d/Books"
 
 
 const AkutagawaApp: React.FC = () => {
