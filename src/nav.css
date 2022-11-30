@@ -3,7 +3,9 @@
 
     color: rgb(104, 106, 108);
 }
-
+#langBtn {
+    cursor: pointer;
+}
 #navigation {
     position: fixed; 
     background-image: url("./bgPhotos/paper.png");
