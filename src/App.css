@@ -132,6 +132,18 @@ ul {
   align-self: flex-end;
 }
 
+@media only screen and (min-width: 650px) {
+  .winnersDisp{
+    min-width: 530px;
+  }
+  th, td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+
 
 
 @media only screen and (min-width: 900px) {

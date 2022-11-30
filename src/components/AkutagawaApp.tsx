@@ -8,15 +8,11 @@ import About from "./About"
 import Auth from "./AuthPage"  
 import Nav from "./Nav" 
 import UserHome from './UserHome';
-import {UserContext} from "../contexts/UserContext.jsx"
-import {Book} from './interfaces/baseInterface'
 
 
 
 const AkutagawaApp: React.FC = () => {
   
-
-
   return (
   <div className="AkutagawaApp">
       <Nav />  

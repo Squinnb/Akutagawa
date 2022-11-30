@@ -13,7 +13,7 @@ function AuthPage() {
 
     return (
         <div className="authContainer ">
-            hello user.
+            Please authenticate yourself...
         </div>
     )
 }

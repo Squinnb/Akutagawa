@@ -13,7 +13,7 @@ export default function Nav() {
 
        <nav  id="navigation">
             <ul id="navList">
-                <li className="navli"><NavLink className="nl currentLink" to="/">{navText[lang][0]}</NavLink></li>
+                <li className="navli"><NavLink className="nl" to="/">{navText[lang][0]}</NavLink></li>
                 <li className="navli"><NavLink className="nl" to="/About">{navText[lang][1]}</NavLink></li>
                 
                 {user ?

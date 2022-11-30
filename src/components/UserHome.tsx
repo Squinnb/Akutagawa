@@ -6,7 +6,8 @@ export default function UserHome() {
 
     return (
         <div>
-            hello 
+            hello user... <br />
+            under construction
         </div>
     )
 }
