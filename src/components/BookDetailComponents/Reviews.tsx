@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext, useMemo, memo} from 'react'
+import {useEffect, useState, useContext, memo} from 'react'
 import Review from './Review'
 
 import '../../details.css'

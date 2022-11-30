@@ -6,7 +6,7 @@ import { UserContext } from "../contexts/UserContext.jsx"
 
 export default function Nav() {
   
-    const { user } : any = useContext(UserContext)
+    const { user, toggleLang } : any = useContext(UserContext)
     
     return (
 
@@ -17,12 +17,11 @@ export default function Nav() {
                 
                 {user ?
                         <>
-                        
+                        <li className="navli"><div onClick={toggleLang}>En/Ja</div></li>
                         <li className="navli authLink">
                             <NavLink  id='userHomeNavLink' className="nl"  to="/UserHome"> {user.name} </NavLink>
-
-                           
                         </li>
+                        
                         </>
                       :  
                         ""

@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../App.css';
 import BookList from "./BookList"
 import SearchForm from "./SearchForm";
 import {Book} from './interfaces/baseInterface'
+import { UserContext } from '../contexts/UserContext';
 
-interface Props {
-  data: Array<Book>;
-}
 
-const BookIndex: React.FC<Props> = (props) => {
-  const { data } = props
-  const l = data.length
-  const [winners, setWinners] = useState(data.slice(0, 12))
-  
+const BookIndex: React.FC = () => {
+  let books  : Array<Book> = useContext(UserContext).books
+  const [winners, setWinners] = useState(books.slice(0, 12))
+  const [decade, setDecade] = useState<string>("193")
+  useEffect(() => {
+    setBooksByDecade(decade)
+  },[books])
   
   const handleClick = (e: any) => {
-    let name = e.target.name;
-    if(name === "all") {
-      setWinners(data.slice(0, l))
+    const year = e.target.name;
+    setDecade(year)
+    setBooksByDecade(year)
+  }
+
+  const setBooksByDecade = (year: string) => {
+    if(year === "all") {
+      setWinners(books.slice(0, books.length))
     } else {
-      let decade = data.filter( (w) => {
-        return w.year.slice(0,3) === name
+      const newWinners = books.filter( (w) => {
+        return w.year.slice(0,3) === year
       })
-      setWinners(decade)
+      setWinners(newWinners)
     }
   }
 
@@ -56,7 +61,7 @@ const BookIndex: React.FC<Props> = (props) => {
         </div>
         
         <div className="txtL">
-          <SearchForm sw={setWinners} data={data} />
+          <SearchForm sw={setWinners} data={books} />
         </div>
         
       </div>

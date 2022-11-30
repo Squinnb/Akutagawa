@@ -1,5 +1,5 @@
 import AkutagawaApp from './components/AkutagawaApp'
-import {UserProvider} from "./contexts/UserContext.jsx"
+import {UserProvider} from "./contexts/UserContext"
 import './App.css';
 
 function App() {
