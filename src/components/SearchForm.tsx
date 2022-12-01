@@ -1,16 +1,19 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import { UserContext } from "../contexts/UserContext";
 import {Book} from './interfaces/baseInterface'
+
 
 interface Props {
     sw: (a: Book[]) => void;
-    data: Book[];
+    books: Book[];
 }
 
 const SearchForm: React.FC<Props> = (props) => {
 
-    const { data, sw } = props
+    const { books, sw } = props
     const [query, setQuery] = useState("")
-
+    const { lang } : any = useContext(UserContext)
+  
     const handleChange = (e: any) => {
         let sq = e.target.value
         setQuery(sq)
@@ -19,16 +22,20 @@ const SearchForm: React.FC<Props> = (props) => {
     const handleSearch = (e: any) => {
         e.preventDefault()
 
-        let searchResults: Book[] = data.filter( (win) => { return win.title.includes(query) || win.name.includes(query)})
+        let searchResults: Book[] = books.filter( (win) => { return win.title.includes(query) || win.name.includes(query)})
         console.log("search result array: ",searchResults)    
+        console.log("search q: ", query)    
         sw(searchResults)
 
     }
 
+    const pholderText = {"en": "Ex: Author, Title", "ja": "例：受賞者、受賞作"}
+const btnText = {"en": "Search", "ja": "検索"}
+
     return (
         <form onSubmit={handleSearch}>
-        <input name="sq" value={query} onChange={handleChange} placeholder="受賞者、受賞作" />
-        <input type="submit"  value="検索" />
+        <input name="sq" value={query} onChange={handleChange} placeholder={pholderText[lang]} />
+        <input type="submit"  value={btnText[lang]} />
         </form>
     )
 

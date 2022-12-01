@@ -10,6 +10,10 @@ const BookIndex: React.FC = () => {
   let books  : Array<Book> = useContext(UserContext).books
   const [winners, setWinners] = useState(books.slice(0, 12))
   const [decade, setDecade] = useState<string>("193")
+
+  const { lang } : any = useContext(UserContext)
+  const dispText = {"en": "Display All", "ja": "全年表"}
+
   useEffect(() => {
     setBooksByDecade(decade)
   },[books])
@@ -41,7 +45,7 @@ const BookIndex: React.FC = () => {
       <div className="toggleBtnBox">
 
         <div className="txtL">
-          <button name="all" onClick={handleClick} className="toggleBtn">全年表</button>
+          <button name="all" onClick={handleClick} className="toggleBtn">{dispText[lang]}</button>
         </div> 
 
         <div className="txtL">
@@ -61,7 +65,7 @@ const BookIndex: React.FC = () => {
         </div>
         
         <div className="txtL">
-          <SearchForm sw={setWinners} data={books} />
+          <SearchForm sw={setWinners} books={books} />
         </div>
         
       </div>

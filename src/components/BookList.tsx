@@ -9,7 +9,7 @@ interface BookListProps {
 
 const BookList: React.FC<BookListProps> = (winprops: BookListProps) => {
 
-    const { user, toggleLang, lang } : any = useContext(UserContext)
+    const { lang } : any = useContext(UserContext)
     const tableText = {"en": ["Year", "Author", "Title"], "ja": ["受賞年", "受賞者", "受賞作"]}
 
     return (
