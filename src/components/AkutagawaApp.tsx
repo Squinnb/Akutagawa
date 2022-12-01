@@ -21,7 +21,7 @@ const AkutagawaApp: React.FC = () => {
           <Routes>
             <Route  path="/" element={<BookIndex />} />
             <Route  path="/About" element={<About/>}  />
-            <Route  path="/Akutagawashou/:title" element={<BookDetails/>}  />
+            <Route  path="/Akutagawashou/:no" element={<BookDetails/>}  />
             <Route  path="/Auth" element={<Auth  />}  />
             <Route  path="/UserHome" element={<UserHome  />}  />
           </Routes>
