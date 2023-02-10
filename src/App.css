@@ -1,6 +1,12 @@
 body {
   background-color: rgb(223, 228, 233);
 }
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: rgb(223, 228, 233);
+  }
+}
 .listContainer {
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
