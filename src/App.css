@@ -165,7 +165,14 @@ ul {
 }
 
 .toggleSignInUp {
+  margin-top: 12px;
   border-style: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .authContainer {
   display: flex;
@@ -182,16 +189,19 @@ ul {
   color: rgba(123, 123, 123, 0.899);
 }
 
+
 .authForm {
-  padding: 1rem;
-  justify-content: center;
+  position: relative;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   border: 0.13rem solid black;
   border-radius: 5px;
   background-image: url("./bgPhotos/paper.png");
   box-shadow: 10px 10px 0 black;
+  min-height: 180px;
 }
+
 
 .authForm input {
   width: 35vw;

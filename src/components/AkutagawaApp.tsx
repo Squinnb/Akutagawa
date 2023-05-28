@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import {Route, Routes} from "react-router-dom"
+import React from 'react';
+import { RouterProvider, createBrowserRouter, } from "react-router-dom"
 import '../App.css';
 import '../nav.css'
 import BookIndex from "./BookIndex"  
@@ -9,7 +9,28 @@ import Auth from "./AuthPage"
 import Nav from "./Nav" 
 import UserHome from './UserHome';
 
-
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <BookIndex />,
+  },
+  {
+    path: "/About",
+    element: <About />,
+  },
+  {
+    path: "/Akutagawashou/:no",
+    element: <BookDetails/>,
+  },
+  {
+    path: "/Auth",
+    element: <Auth/>,
+  },
+  {
+    path: "/UserHome",
+    element: <UserHome/>,
+  }
+], {basename: "/Akutagawa/"})
 
 const AkutagawaApp: React.FC = () => {
   
@@ -17,16 +38,8 @@ const AkutagawaApp: React.FC = () => {
   <div className="AkutagawaApp">
       <Nav />  
       <main> 
-        
-          <Routes>
-            <Route  path="/" element={<BookIndex />} />
-            <Route  path="/About" element={<About/>}  />
-            <Route  path="/Akutagawashou/:no" element={<BookDetails/>}  />
-            <Route  path="/Auth" element={<Auth  />}  />
-            <Route  path="/UserHome" element={<UserHome  />}  />
-          </Routes>
-            
-    </main>
+        <RouterProvider router={router} />
+      </main>
   </div>
     
   );

@@ -17,7 +17,7 @@
 
 
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 901px) {
     #navigation {
         width: 7rem;
         height: 40vh;
@@ -29,10 +29,6 @@
     #userHomeNavLink {
         margin-top: 1rem;
     }
-    /* #navigation:hover {
-        width: 13rem;
-        transition: width 400ms;
-    } */
     #navList {
         height: 90%;
         flex-direction: column;
@@ -57,7 +53,8 @@
         border-bottom: 1px solid black;
     }
     .nl {
-        margin: 1rem;
+        margin-left: .5rem;
+        margin-right: .5rem;
     }
     .authLink {
         margin-left: auto;
