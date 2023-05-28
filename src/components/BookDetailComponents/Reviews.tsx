@@ -4,6 +4,7 @@ import Review from './Review'
 import '../../details.css'
 import ReviewForm from './ReviewForm';
 import reviewList from '../../d/Revs';
+import { UserContext } from '../../contexts/UserContext';
 interface Props {
     book_id: number;
 }
@@ -16,10 +17,10 @@ interface ReviewData {
     title: string;
 }
  function Reviews(props: Props) {
-   
+    const { user } : any = useContext(UserContext)
     const { book_id } = props
     
-    let [hasReviewed, setHasReviewed] = useState<Boolean>(true)
+    let [hasReviewed, setHasReviewed] = useState<Boolean>(false)
     let [reviews, setReviews] = useState<ReviewData[]>([])
 
     // The user's review
@@ -29,7 +30,7 @@ interface ReviewData {
     useEffect(() => {
         console.log(book_id)
         let revs: Array<ReviewData> = reviewList.filter( (r: ReviewData ) => {
-            console.log(r)
+            if(r.user === user.name) setHasReviewed(true);
             return r.book === book_id
         })
         console.log(revs)
@@ -42,7 +43,7 @@ interface ReviewData {
     return (
         <div className='review'>
             {
-                false && !hasReviewed ?
+                user && !hasReviewed ?
                 <ReviewForm setReviewText={setText} reviewText={text} setReviewTitle={setTitle} reviewTitle={title} /> :
                 ""
 
