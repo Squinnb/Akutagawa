@@ -43,7 +43,7 @@ interface ReviewData {
     return (
         <div className='review'>
             {
-                user && !hasReviewed ?
+                user.name && !hasReviewed ?
                 <ReviewForm setReviewText={setText} reviewText={text} setReviewTitle={setTitle} reviewTitle={title} /> :
                 ""
 
