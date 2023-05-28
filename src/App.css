@@ -159,7 +159,14 @@ ul {
 }
 
 .toggleSignInUp {
+  margin-top: 12px;
   border-style: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .authContainer {
   display: flex;
@@ -178,6 +185,7 @@ ul {
 
 
 .authForm {
+  position: relative;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;

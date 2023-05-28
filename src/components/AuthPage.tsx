@@ -1,5 +1,5 @@
 import { useState, useContext,  useEffect } from 'react'
-import { redirect } from 'react-router-dom';
+import { router } from './AkutagawaApp';
 
 
 import '../App.css'
@@ -23,6 +23,9 @@ function AuthPage() {
         if(localStorage.getItem("username")) {
             setHasAccount(true)
         }
+        return () => {
+            console.log("auth unmount...")
+        }
     }, [])
 
 
@@ -32,19 +35,19 @@ function AuthPage() {
         e.preventDefault()
         const un =localStorage.getItem("username")
         const pass = localStorage.getItem("password")
-        console.log("Do they match? ", un, username)
         if(un === username && password === pass) {
-            console.log("Do they match? ", pass, password)
             setUserInfo(un)
-            
+            router.navigate("/Akutagawa/")
         }
 
     }
     const signUp = (e:any) => {
         e.preventDefault()
         if(password !== passwordConfirmation) return;
+        if(username.length < 2 || password.length < 2) return;
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
+        setPassword("")
         setHasAccount(true)
     }
 
