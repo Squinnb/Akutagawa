@@ -28,6 +28,7 @@ body {
   margin: 0.1rem;
 }
 .titleBtn {
+  cursor: pointer;
   background: none;
   border: 0.03rem solid rgb(232, 217, 213);
   border-radius: 5px 5px 5px 5px;
@@ -100,6 +101,7 @@ td {
   margin-left: 1.5rem;
 }
 .toggleBtn {
+  cursor: pointer;
   font-size: 0.6rem;
   background-color: rgb(246, 113, 113);
   border-radius: 5px 5px 5px 5px;

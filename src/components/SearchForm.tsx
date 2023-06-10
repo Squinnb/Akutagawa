@@ -36,7 +36,7 @@ const SearchForm: React.FC<Props> = (props) => {
     return (
         <form onSubmit={handleSearch}>
         <input name="sq" value={query} onChange={handleChange} placeholder={pholderText[lang]} />
-        <input type="submit"  value={btnText[lang]} />
+        <input type="submit" style={{cursor: "pointer"}}  value={btnText[lang]} />
         </form>
     )
 
