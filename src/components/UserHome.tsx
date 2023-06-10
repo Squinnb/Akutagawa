@@ -8,7 +8,6 @@ export default function UserHome() {
     return (
         <div style={{display: "flex", justifyContent: "center"}}>
             <div style={{textAlign: "left"}}>
-
             Hello {user.name}... 👋 🚧👷<br />
             User page currently under construction, <br />
             please check back soon.
