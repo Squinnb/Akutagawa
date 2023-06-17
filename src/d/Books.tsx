@@ -1252,7 +1252,7 @@ const enBooks: Book[] = [
     year: "1937下",
   },
   {
-    no: "7",
+    no: " 7",
     name: "Gishū Nakayama",
     title: "Atsumonozaki",
     magazine: "Bungakukai",
@@ -1268,8 +1268,15 @@ const enBooks: Book[] = [
   {
     no: "9",
     name: "Yoshiyuki Handa",
-    title: "Niwatori Sōdō, Asakusa no Kodomo",
-    magazine: "Bungei Shuto, check",
+    title: "Niwatori Sōdō",
+    magazine: "Bungei Shuto",
+    year: "1939上",
+  },
+  {
+    no: "9",
+    name: "Ken Hase",
+    title: "Asakusa no Kodomo",
+    magazine: "check",
     year: "1939上",
   },
   {
