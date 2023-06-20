@@ -1233,7 +1233,7 @@ const enBooks: Book[] = [
   {
     no: "4",
     name: "Jun Ishikawa",
-    title: "The Bodhisattva, or, Samantabhadra, Chichūkai",
+    title: "The Bodhisattva, or, Samantabhadra",
     magazine: "Fugen, Tōyō",
     year: "1936下",
   },
