@@ -20,7 +20,8 @@ export default function Nav() {
             <ul id="navList">
                 <li className="navli"><div className="nl" onClick={() => router.navigate("/Akutagawa/")} >{navText[lang][0]}</div></li>
                 <li className="navli"><div className="nl" onClick={() => router.navigate("/Akutagawa/About")}>{navText[lang][1]}</div></li>
-                <li className="navli" ><button onClick={toggleLang} id='langBtn'>En/Ja</button></li>
+                <li className="navli" ><button onClick={toggleLang} id='langBtn'>{ lang === "en" ? "日本語" : "English"}</button></li>
+                
                 {user.name !== "Guest" ?
                         <>
                         

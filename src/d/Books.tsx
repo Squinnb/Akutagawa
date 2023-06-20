@@ -1238,6 +1238,13 @@ const enBooks: Book[] = [
     year: "1936下",
   },
   {
+    no: "4",
+    name: "Uio Tomizawa",
+    title: "Chichūkai",
+    magazine: "Fugen, Tōyō",
+    year: "1936下",
+  },
+  {
     no: "5",
     name: "Kazuo Ozaki",
     title: "Rosy Glasses",
