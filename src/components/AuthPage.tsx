@@ -37,7 +37,7 @@ function AuthPage() {
         const pass = localStorage.getItem("password")
         if(un === username && password === pass) {
             setUserInfo(un)
-            router.navigate("/Akutagawa/")
+            router.navigate("/")
         }
 
     }

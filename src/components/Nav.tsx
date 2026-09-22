@@ -12,28 +12,28 @@ export default function Nav() {
 
     const signOut = () => {
         setUserInfo("Guest")
-        router.navigate("/Akutagawa/")
+        router.navigate("/")
     }
 
     return (
        <nav  id="navigation">
             <ul id="navList">
-                <li className="navli"><div className="nl" onClick={() => router.navigate("/Akutagawa/")} >{navText[lang][0]}</div></li>
-                <li className="navli"><div className="nl" onClick={() => router.navigate("/Akutagawa/About")}>{navText[lang][1]}</div></li>
+                <li className="navli"><div className="nl" onClick={() => router.navigate("/")} >{navText[lang][0]}</div></li>
+                <li className="navli"><div className="nl" onClick={() => router.navigate("/About")}>{navText[lang][1]}</div></li>
                 <li className="navli" ><button onClick={toggleLang} id='langBtn'>{ lang === "en" ? "日本語" : "English"}</button></li>
                 
                 {user.name !== "Guest" ?
                         <>
                         
                         <li className="navli authLink">
-                            <div  id='userHomediv' className="nl"  onClick={() => router.navigate("/Akutagawa/UserHome")}> {navText[lang][2]} </div>
+                            <div  id='userHomediv' className="nl"  onClick={() => router.navigate("/UserHome")}> {navText[lang][2]} </div>
                             <div onClick={signOut} className='nl' >{authText[lang].so}</div>
                         </li>
                         
                         </>
                       :  
                         <li className="navli authLink">
-                            <div className="nl" onClick={() => router.navigate("/Akutagawa/Auth")}> {authText[lang].si} </div>
+                            <div className="nl" onClick={() => router.navigate("/Auth")}> {authText[lang].si} </div>
                         </li>
                 }
                 
