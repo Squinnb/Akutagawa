@@ -6,12 +6,214 @@ export interface Book {
     magazine: string;
 }
 
-export const getBooks = (la: string) => {
- if(la === "ja") {
-        return jaBooks
-    }
-    return enBooks
+export interface Winner {
+  name: string;
+  title: string;
+  magazine: string;
 }
+
+export interface Award {
+  no: string;
+  year: string;
+  winners: Winner[];
+}
+
+export const getBooks = (la: string) => {
+  return flattenAwards(la === "ja" ? jaAwards : enAwards)
+}
+
+const groupAwards = (books: Book[]): Award[] => {
+  const awards: Award[] = []
+
+  for (const book of books) {
+    let award = awards.find((item) => item.no === book.no && item.year === book.year)
+    if (!award) {
+      award = { no: book.no, year: book.year, winners: [] }
+      awards.push(award)
+    }
+
+    if (book.name !== "なし" && book.name !== "None") {
+      award.winners.push({
+        name: book.name,
+        title: book.title,
+        magazine: book.magazine,
+      })
+    }
+  }
+
+  return awards
+}
+
+const englishAwardCorrections: Record<string, Winner[]> = {
+  "19|1944上": [
+    { name: "Yoshinori Yagi", title: "Ryū Kanfū", magazine: "Nihon Bungakusha" },
+    { name: "Jūzō Obi", title: "Tōhan", magazine: "Kokumin Bungaku" },
+  ],
+  "21|1949上": [
+    { name: "Tsuyoshi Kotani", title: "Kakushō", magazine: "Sakka" },
+    { name: "Shigeko Yuki", title: "Hon no Hanashi", magazine: "Sakuhin" },
+  ],
+  "25|1951上": [
+    { name: "Kōbō Abe", title: "The Wall — The Crime of S. Karma", magazine: "Kindai Bungaku" },
+    { name: "Toshimitsu Ishikawa", title: "Haru no Kusa", magazine: "Bungakukai" },
+  ],
+  "28|1952下": [
+    { name: "Kōsuke Gomi", title: "Sōshin", magazine: "Shinchō" },
+    { name: "Seichō Matsumoto", title: "Aru \"Kokura Nikki\" Den", magazine: "Mita Bungaku" },
+  ],
+  "32|1954下": [
+    { name: "Nobuo Kojima", title: "The American School", magazine: "Bungakukai" },
+    { name: "Junzō Shōno", title: "Evenings at the Pool", magazine: "Gunzō" },
+  ],
+  "49|1963上": [
+    { name: "Kiichi Gotō", title: "Shōnen no Hashi", magazine: "Yamagata Bungaku" },
+    { name: "Taeko Kōno", title: "Crabs", magazine: "Bungakukai" },
+  ],
+  "59|1968上": [
+    { name: "Saiichi Maruya", title: "Toshi no Nokori", magazine: "Bungakukai" },
+    { name: "Minako Ōba", title: "The Three Crabs", magazine: "Gunzō" },
+  ],
+  "61|1969上": [
+    { name: "Kaoru Shōji", title: "Watch Out for Little Red Riding Hood", magazine: "Chūōkōron" },
+    { name: "Hideo Takubo", title: "Fukai Kawa", magazine: "Shinchō" },
+  ],
+  "63|1970上": [
+    { name: "Tomoko Yoshida", title: "Mumyōjōya", magazine: "Shinchō" },
+    { name: "Kōyū Furuyama", title: "The Dawn of Pleurō 8", magazine: "Bungei" },
+  ],
+  "66|1971下": [
+    { name: "Kaisei Ri", title: "The Woman Who Fulled Clothes", magazine: "Kikan Geijutsu" },
+    { name: "Mineo Higashi", title: "Child of Okinawa", magazine: "Bungakukai" },
+  ],
+  "67|1972上": [
+    { name: "Hiroshi Hatayama", title: "Itsuka Kiteki o Narashite", magazine: "Bungakukai" },
+    { name: "Akio Miyahara", title: "Dareka ga Sawatta", magazine: "Bungei" },
+  ],
+  "68|1972下": [
+    { name: "Michiko Yamamoto", title: "Betty-san", magazine: "Shinchō" },
+    { name: "Shizuko Gō", title: "Requiem", magazine: "Bungakukai" },
+  ],
+  "70|1973下": [
+    { name: "Kuninobu Noro", title: "Kusa no Tsurugi", magazine: "Bungakukai" },
+    { name: "Atsushi Mori", title: "Gassan", magazine: "Kikan Geijutsu" },
+  ],
+  "72|1974下": [
+    { name: "Keizō Hino", title: "Ano Yūhi", magazine: "Shinchō" },
+    { name: "Hiroo Sakata", title: "Tsuchi no Utsuwa", magazine: "Bungakukai" },
+  ],
+  "74|1975下": [
+    { name: "Kenji Nakagami", title: "The Cape", magazine: "Bungei" },
+    { name: "Kazuo Okamatsu", title: "Shikanoshima", magazine: "Bungakukai" },
+  ],
+  "77|1977上": [
+    { name: "Masahiro Mita", title: "What Am I?", magazine: "Bungei" },
+    { name: "Masuo Ikeda", title: "Dedicated to the Aegean Sea", magazine: "Yasei Jidai" },
+  ],
+  "78|1977下": [
+    { name: "Teru Miyamoto", title: "River of Fireflies", magazine: "Bungei Tenbō" },
+    { name: "Shūzō Takagi", title: "Kaya no Ki Matsuri", magazine: "Shinchō" },
+  ],
+  "79|1978上": [
+    { name: "Kiichirō Takahashi", title: "Nobuyo", magazine: "Bungei" },
+    { name: "Mitsutsuna Takahashi", title: "September Sky", magazine: "Bungei" },
+  ],
+  "81|1979上": [
+    { name: "Yoshiko Shigekane", title: "The Smoke in the Mountain Valley", magazine: "Bungakukai" },
+    { name: "Satoshi Aono", title: "Gusha no Yoru", magazine: "Bungakukai" },
+  ],
+  "88|1982下": [
+    { name: "Sachiko Katō", title: "Yume no Kabe", magazine: "Shinchō" },
+    { name: "Jūrō Kara", title: "A Letter from Sagawa-kun", magazine: "Bungei" },
+  ],
+  "90|1983下": [
+    { name: "Jun Kasahara", title: "Mokuji no Sekai", magazine: "Kaien" },
+    { name: "Nobuko Takagi", title: "Hikari Idaku Tomo yo", magazine: "Shinchō" },
+  ],
+  "98|1987下": [
+    { name: "Natsuki Ikezawa", title: "Still Life", magazine: "Chūōkōron" },
+    { name: "Kiyohiro Miura", title: "He's Leaving Home: My Young Son Becomes a Zen Monk", magazine: "Kaien" },
+  ],
+  "100|1988下": [
+    { name: "Keishi Nagi", title: "Diamond Dust", magazine: "Bungakukai" },
+    { name: "Yoshie Lee", title: "Yuhi", magazine: "Gunzō" },
+  ],
+  "102|1989下": [
+    { name: "Akira Ōoka", title: "Surface Life", magazine: "Bungakukai" },
+    { name: "Mieko Takizawa", title: "In a Town with a Nekobaba", magazine: "Gunzō" },
+  ],
+  "105|1991上": [
+    { name: "Yō Henmi", title: "Automatic Wake-up Device", magazine: "Bungakukai" },
+    { name: "Anna Ogino", title: "Carrying Water", magazine: "Bungakukai" },
+  ],
+  "111|1994上": [
+    { name: "Mitsuhiro Muroi", title: "Odorudeku", magazine: "Gunzō" },
+    { name: "Yoriko Shōno", title: "Time-Slip Combinat", magazine: "Bungakukai" },
+  ],
+  "116|1996下": [
+    { name: "Hitonari Tsuji", title: "The Light of the Strait", magazine: "Shinchō" },
+    { name: "Yū Miri", title: "Family Cinema", magazine: "Gunzō" },
+  ],
+  "119|1998上": [
+    { name: "Mangetsu Hanamura", title: "The Night of Germanium", magazine: "Bungakukai" },
+    { name: "Shū Fujisawa", title: "Buenos Aires at Midnight", magazine: "Bungei" },
+  ],
+  "122|1999下": [
+    { name: "Gen Getsu", title: "Kage no Sumika", magazine: "Bungakukai" },
+    { name: "Chiya Fujino", title: "A Summer Promise", magazine: "Gunzō" },
+  ],
+  "123|2000上": [
+    { name: "Kō Machida", title: "Rip It Up", magazine: "Bungakukai" },
+    { name: "Hisaki Matsuura", title: "Hana Kutashi", magazine: "Gunzō" },
+  ],
+  "124|2000下": [
+    { name: "Yūichi Seirai", title: "Holy Water", magazine: "Bungakukai" },
+    { name: "Toshiyuki Horie", title: "The Bear and the Paving Stone", magazine: "Gunzō" },
+  ],
+  "144|2010下": [
+    { name: "Mariko Asabuki", title: "Kikotowa", magazine: "Shinchō" },
+    { name: "Kenta Nishimura", title: "The Train of Hardship", magazine: "Shinchō" },
+  ],
+  "146|2011下": [
+    { name: "Tō Enjō", title: "Harlequin Butterfly", magazine: "Gunzō" },
+    { name: "Shinya Tanaka", title: "Cannibals", magazine: "Subaru" },
+  ],
+  "153|2015上": [
+    { name: "Keisuke Hada", title: "Scrap and Build", magazine: "Bungakukai" },
+    { name: "Naoki Matayoshi", title: "Spark", magazine: "Bungei" },
+  ],
+  "154|2015下": [
+    { name: "Yūshō Takiguchi", title: "The One Who Is Not Dead", magazine: "Bungakukai" },
+    { name: "Yukiko Motoya", title: "An Exotic Marriage", magazine: "Gunzō" },
+  ],
+  "158|2017下": [
+    { name: "Chisako Wakatake", title: "Ora Ora de Hitori Igumo", magazine: "Bungei" },
+    { name: "Yuka Ishii", title: "The Mud of a Century", magazine: "Shinchō" },
+  ],
+  "160|2018下": [
+    { name: "Ryōhei Machiya", title: "1R 1-Pun 34-Byō", magazine: "Shinchō" },
+    { name: "Takehiro Ueda", title: "Nimrod", magazine: "Gunzō" },
+  ],
+  "165|2021上": [
+    { name: "Mai Ishizawa", title: "The Place of Shells", magazine: "Gunzō" },
+    { name: "Li Kotomi", title: "Higanbana ga Saku Shima", magazine: "Bungakukai" },
+  ],
+}
+
+const buildEnglishAwards = (): Award[] => {
+  const awards = groupAwards(legacyEnBooks)
+  return awards.map((award) => ({
+    ...award,
+    winners: englishAwardCorrections[`${award.no}|${award.year}`] ?? award.winners,
+  }))
+}
+
+const flattenAwards = (awards: Award[]): Book[] => awards.flatMap((award) => {
+  if (award.winners.length === 0) {
+    return [{ no: award.no, year: award.year, name: "なし", title: "なし", magazine: "なし" }]
+  }
+
+  return award.winners.map((winner) => ({ ...winner, no: award.no, year: award.year }))
+})
 
 
 const jaBooks: Book[] = [
@@ -146,6 +348,13 @@ const jaBooks: Book[] = [
     magazine: "日本文學者",
   },
   {
+    no: "19",
+    year: "1944上",
+    name: "小尾十三",
+    title: "登攀",
+    magazine: "國民文學",
+  },
+  {
     no: "20",
     year: "1944下",
     name: "清水基吉",
@@ -276,6 +485,13 @@ const jaBooks: Book[] = [
     title: "裸の王様",
     magazine: "文學界",
   },
+  {
+    no: "39",
+    year: "1958上",
+    name: "大江健三郎",
+    title: "飼育",
+    magazine: "文學界",
+  },
   { no: "40", year: "1958下", name: "なし", title: "なし", magazine: "なし" },
   {
     no: "41",
@@ -386,6 +602,13 @@ const jaBooks: Book[] = [
     name: "丸谷才一",
     title: "年の残り",
     magazine: "文學界",
+  },
+  {
+    no: "59",
+    year: "1968上",
+    name: "大庭みな子",
+    title: "三匹の蟹",
+    magazine: "群像",
   },
   { no: "60", year: "1968下", name: "なし", title: "なし", magazine: "なし" },
   {
@@ -567,6 +790,13 @@ const jaBooks: Book[] = [
     title: "伸予",
     magazine: "文藝",
   },
+  {
+    no: "79",
+    year: "1978上",
+    name: "高橋三千綱",
+    title: "九月の空",
+    magazine: "文藝",
+  },
   { no: "80", year: "1978下", name: "なし", title: "なし", magazine: "なし" },
   {
     no: "81",
@@ -673,6 +903,13 @@ const jaBooks: Book[] = [
     name: "三浦清宏",
     title: "長男の出家",
     magazine: "海燕",
+  },
+  {
+    no: "99",
+    year: "1988上",
+    name: "新井満",
+    title: "尋ね人の時間",
+    magazine: "文學界",
   },
   {
     no: "100",
@@ -832,6 +1069,13 @@ const jaBooks: Book[] = [
     magazine: "文學界",
   },
   {
+    no: "119",
+    year: "1998上",
+    name: "藤沢周",
+    title: "ブエノスアイレス午前零時",
+    magazine: "文藝",
+  },
+  {
     no: "120",
     year: "1998下",
     name: "平野啓一郎",
@@ -984,6 +1228,13 @@ const jaBooks: Book[] = [
     year: "2007下",
     name: "川上未映子",
     title: "乳と卵",
+    magazine: "文學界",
+  },
+  {
+    no: "139",
+    year: "2008上",
+    name: "楊逸",
+    title: "時が滲む朝",
     magazine: "文學界",
   },
   {
@@ -1143,6 +1394,13 @@ const jaBooks: Book[] = [
     magazine: "新潮",
   },
   {
+    no: "159",
+    year: "2018上",
+    name: "高橋弘希",
+    title: "送り火",
+    magazine: "文學界",
+  },
+  {
     no: "160",
     year: "2018下",
     name: "町屋良平",
@@ -1173,41 +1431,133 @@ const jaBooks: Book[] = [
   {
     no: "163",
     year: "2020上",
-    name: "遠野遥",
-    title: "破局",
-    magazine: "文藝",
+    name: "高山羽根子",
+    title: "首里の馬",
+    magazine: "新潮",
   },
   {
-    no: "164",
+    no: "163",
     year: "2020上",
     name: "遠野遥",
     title: "破局",
     magazine: "文藝",
   },
   {
-    no: "165",
+    no: "164",
     year: "2020下",
-    name: "宇佐見 りん",
+    name: "宇佐見りん",
     title: "推し、燃ゆ",
-    magazine: "...",
+    magazine: "文藝",
+  },
+  {
+    no: "165",
+    year: "2021上",
+    name: "石沢麻依",
+    title: "貝に続く場所にて",
+    magazine: "群像",
+  },
+  {
+    no: "165",
+    year: "2021上",
+    name: "李琴峰",
+    title: "彼岸花（ひがんばな）が咲く島",
+    magazine: "文學界",
   },
   {
     no: "166",
     year: "2021下",
     name: "砂川文次",
-    title: "ラックボックス",
-    magazine: "...",
+    title: "ブラックボックス",
+    magazine: "群像",
   },
   {
     no: "167",
     year: "2022上",
-    name: " 高瀬隼子",
+    name: "高瀬隼子",
     title: "おいしいごはんが食べられますように",
-    magazine: "...",
+    magazine: "群像",
+  },
+  {
+    no: "168",
+    year: "2022下",
+    name: "井戸川射子",
+    title: "この世の喜びよ",
+    magazine: "群像",
+  },
+  {
+    no: "168",
+    year: "2022下",
+    name: "佐藤厚志",
+    title: "荒地の家族",
+    magazine: "新潮",
+  },
+  {
+    no: "169",
+    year: "2023上",
+    name: "市川沙央",
+    title: "ハンチバック",
+    magazine: "文學界",
+  },
+  {
+    no: "170",
+    year: "2023下",
+    name: "九段理江",
+    title: "東京都同情塔",
+    magazine: "新潮",
+  },
+  {
+    no: "171",
+    year: "2024上",
+    name: "朝比奈秋",
+    title: "サンショウウオの四十九日",
+    magazine: "新潮",
+  },
+  {
+    no: "171",
+    year: "2024上",
+    name: "松永K三蔵",
+    title: "バリ山行（さんこう）",
+    magazine: "群像",
+  },
+  {
+    no: "172",
+    year: "2024下",
+    name: "安堂ホセ",
+    title: "DTOPIA（デートピア）",
+    magazine: "文藝",
+  },
+  {
+    no: "172",
+    year: "2024下",
+    name: "鈴木結生",
+    title: "ゲーテはすべてを言った",
+    magazine: "小説トリッパー",
+  },
+  { no: "173", year: "2025上", name: "なし", title: "なし", magazine: "なし" },
+  {
+    no: "174",
+    year: "2025下",
+    name: "鳥山まこと",
+    title: "時の家",
+    magazine: "群像",
+  },
+  {
+    no: "174",
+    year: "2025下",
+    name: "畠山丑雄",
+    title: "叫び",
+    magazine: "新潮",
+  },
+  {
+    no: "175",
+    year: "2026上",
+    name: "小砂川チト",
+    title: "ゾンビ回収婦",
+    magazine: "群像",
   },
 ];
 
-const enBooks: Book[] = [
+const legacyEnBooks: Book[] = [
   {
     no: "1",
     name: "Tatsuzō Ishikawa",
@@ -1961,8 +2311,15 @@ const enBooks: Book[] = [
   {
     no: "130",
     name: "Hitomi Kanehara",
-    title: "Snakes and Earrings, I Want to Kick You in the Back",
-    magazine: "Hebi ni Piasu, Keritai Senaka",
+    title: "Snakes and Earrings",
+    magazine: "Subaru",
+    year: "2003下",
+  },
+  {
+    no: "130",
+    name: "Risa Wataya",
+    title: "I Want to Kick You in the Back",
+    magazine: "Bungei",
     year: "2003下",
   },
   {
@@ -2185,6 +2542,13 @@ const enBooks: Book[] = [
     year: "2020上",
   },
   {
+    no: "163",
+    name: "Haneko Takayama",
+    title: "Shuri no Uma",
+    magazine: "Shinchō",
+    year: "2020上",
+  },
+  {
     no: "164",
     name: "Rin Usami",
     title: "Oshi, Moyu",
@@ -2212,4 +2576,86 @@ const enBooks: Book[] = [
     magazine: "Gunzō",
     year: "2022上",
   },
+  {
+    no: "168",
+    name: "Shako Idogawa",
+    title: "Kono Yo no Yorokobi yo",
+    magazine: "Gunzō",
+    year: "2022下",
+  },
+  {
+    no: "168",
+    name: "Atsushi Satō",
+    title: "Arechi no Kazoku",
+    magazine: "Shinchō",
+    year: "2022下",
+  },
+  {
+    no: "169",
+    name: "Sao Ichikawa",
+    title: "Hunchback",
+    magazine: "Bungakukai",
+    year: "2023上",
+  },
+  {
+    no: "170",
+    name: "Rie Kudan",
+    title: "Tokyo Sympathy Tower",
+    magazine: "Shinchō",
+    year: "2023下",
+  },
+  {
+    no: "171",
+    name: "Aki Asahina",
+    title: "Sanshōuo no Shijūkunichi",
+    magazine: "Shinchō",
+    year: "2024上",
+  },
+  {
+    no: "171",
+    name: "Kenzō Matsunaga",
+    title: "Bari Sankō",
+    magazine: "Gunzō",
+    year: "2024上",
+  },
+  {
+    no: "172",
+    name: "Jose Andō",
+    title: "DTOPIA",
+    magazine: "Bungei",
+    year: "2024下",
+  },
+  {
+    no: "172",
+    name: "Yū Suzuki",
+    title: "Goethe wa Subete o Itta",
+    magazine: "Shōsetsu Tripper",
+    year: "2024下",
+  },
+  { no: "173", title: "None", name: "None", magazine: "None", year: "2025上" },
+  {
+    no: "174",
+    name: "Makoto Toriyama",
+    title: "Toki no Ie",
+    magazine: "Gunzō",
+    year: "2025下",
+  },
+  {
+    no: "174",
+    name: "Ushio Hatakeyama",
+    title: "Sakebi",
+    magazine: "Shinchō",
+    year: "2025下",
+  },
+  {
+    no: "175",
+    name: "Chito Kosagawa",
+    title: "Zombie Kaishūfu",
+    magazine: "Gunzō",
+    year: "2026上",
+  },
 ];
+
+export const jaAwards = groupAwards(jaBooks)
+export const enAwards = buildEnglishAwards()
+export const enBooks = flattenAwards(enAwards)
